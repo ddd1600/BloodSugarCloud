@@ -17,6 +17,6 @@ Bloodsugar::Application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   resources :users
   get 'users/index'
-  root 'users#index'
+  root 'bg_measurements#index'
 
 end

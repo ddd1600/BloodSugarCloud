@@ -1,14 +1,13 @@
-<h1>Listing bg_measurements</h1>
+<%= line_chart(@bg_measurements.all.map {|r| [r.created_at, r.mg_dl]}) %>
+
+<h1>Blood Sugar Readings</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Mg dl</th>
+      <th>mg/dL</th>
       <th>Notes</th>
       <th>Patient</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -17,10 +16,7 @@
       <tr>
         <td><%= bg_measurement.mg_dl %></td>
         <td><%= bg_measurement.notes %></td>
-        <td><%= bg_measurement.patient %></td>
-        <td><%= link_to 'Show', bg_measurement %></td>
-        <td><%= link_to 'Edit', edit_bg_measurement_path(bg_measurement) %></td>
-        <td><%= link_to 'Destroy', bg_measurement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= bg_measurement.patient_name %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Bg measurement', new_bg_measurement_path %>
+<p><%= link_to 'Add New Reading', new_bg_measurement_path %></p>

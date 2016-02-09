@@ -4,7 +4,11 @@ class BgMeasurementsController < ApplicationController
   # GET /bg_measurements
   # GET /bg_measurements.json
   def index
-    @bg_measurements = BgMeasurement.all
+#    if params[:user_id]
+#      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id])
+#    else
+      @bg_measurements = BgMeasurement.all
+#    end
   end
 
   # GET /bg_measurements/1
