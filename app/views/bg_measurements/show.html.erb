@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mg dl:</strong>
+  <%= @bg_measurement.mg_dl %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @bg_measurement.notes %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @bg_measurement.patient %>
+</p>
+
+<%= link_to 'Edit', edit_bg_measurement_path(@bg_measurement) %> |
+<%= link_to 'Back', bg_measurements_path %>
