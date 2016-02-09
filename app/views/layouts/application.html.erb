@@ -11,7 +11,21 @@
     <%= javascript_include_tag "application" 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-
+<div id="user_header">
+<% if current_user %>
+Logged in as <%= current_user.email %>.
+<%= link_to "Log Out", logout_path %>
+<% else %>
+<%= link_to "Sign Up", signup_path %> or
+<%= link_to "Log In", login_path %>
+<% end %>
+</div>
+<% flash.each do |key, value| %>
+<%= content_tag(:div, class: "alert alert-#{key}") do %>
+<p><%= value %></p>
+<% end %>
+<% end %>
+<p id="notice"><%= notice %></p>
   <body>
 	    <div class="large-8 columns"><%= yield %></div>
 	</div>

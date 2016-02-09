@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209184119) do
+ActiveRecord::Schema.define(version: 20160209192831) do
 
   create_table "bg_measurements", force: true do |t|
     t.float    "mg_dl"
@@ -22,5 +22,13 @@ ActiveRecord::Schema.define(version: 20160209184119) do
   end
 
   add_index "bg_measurements", ["patient_id"], name: "index_bg_measurements_on_patient_id"
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
