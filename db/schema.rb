@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223232011) do
+ActiveRecord::Schema.define(version: 20160224200029) do
 
   create_table "bg_measurements", force: true do |t|
     t.float    "mg_dl"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160223232011) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",           default: false
   end
 
 end
