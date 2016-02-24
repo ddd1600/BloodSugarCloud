@@ -4,7 +4,7 @@
 	  <%= link_to "Create an Account",  signup_path, :class => "button success round" %><br/>
 	  <%= link_to "Log In", login_path, :class => "button success round" %>
   </div>
-<% elsif %>
+<% else %>
 	<h3 style="text-align: center;"><%= current_user.name %> BG Readings</h3>
 	<%= line_chart(@bg_measurements.all.map {|r| [(r.created_at - 3.hours), r.mg_dl]}) %>
 
