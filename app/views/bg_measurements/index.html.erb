@@ -1,7 +1,9 @@
 <% unless current_user %>
-  <h2>Welcome to the Blood Sugar Cloud</h2>
-  <%= link_to "Create an Account",  signup_path, :class => "button success round" %><br/>
-  <%= link_to "Log In", login_path, :class => "button success round" %>
+  <div style="text-align: center;">
+	  <h2>Welcome to the Blood Sugar Cloud</h2>
+	  <%= link_to "Create an Account",  signup_path, :class => "button success round" %><br/>
+	  <%= link_to "Log In", login_path, :class => "button success round" %>
+  </div>
 <% else %>
 	<h1>Welcome, <%= current_user.name %>!</h1>
 	<%= line_chart(@bg_measurements.all.map {|r| [r.created_at, r.mg_dl]}) %>
