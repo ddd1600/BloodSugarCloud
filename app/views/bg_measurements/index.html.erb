@@ -1,27 +1,36 @@
-<%= line_chart(@bg_measurements.all.map {|r| [r.created_at, r.mg_dl]}) %>
+<% if params[:user_id].nil? %>
+  <h2>Please sign in or create an account</h2>
+  <%= link_to "Create an Account",  signup_path, :class => "button success round" %><br/>
+  <%= link_to "Log In", login_path, :class => "button success round" %>
+<% else %>
+	<h1>Welcome, <%= current_user.name %>!</h1>
+	<%= line_chart(@bg_measurements.all.map {|r| [r.created_at, r.mg_dl]}) %>
 
-<h1>Blood Sugar Readings</h1>
+	<h3>Blood Sugar Readings</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>mg/dL</th>
-      <th>Notes</th>
-      <th>Patient</th>
-    </tr>
-  </thead>
+	<table>
+	  <thead>
+	    <tr>
+	      <th>mg/dL</th>
+	      <th>Notes</th>
+	      <th>Patient</th>
+		  <th>Time of Reading</th>
+	    </tr>
+	  </thead>
 
-  <tbody>
-    <% @bg_measurements.each do |bg_measurement| %>
-      <tr>
-        <td><%= bg_measurement.mg_dl %></td>
-        <td><%= bg_measurement.notes %></td>
-        <td><%= bg_measurement.patient_name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+	  <tbody>
+	    <% @bg_measurements.each do |bg_measurement| %>
+	      <tr>
+	        <td><%= bg_measurement.mg_dl %></td>
+	        <td><%= bg_measurement.notes %></td>
+	        <td><%= bg_measurement.user.name %></td>
+			<td><%= bg_measurement.created_at.strftime("%l:%M %p, %B %e, %Y %Z") %>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
 
-<br>
+	<br>
 
-<p><%= link_to 'Add New Reading', new_bg_measurement_path %></p>
+	<p><%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %></p>
+<% end%>

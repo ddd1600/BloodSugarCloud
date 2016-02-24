@@ -4,10 +4,10 @@ class BgMeasurementsController < ApplicationController
   # GET /bg_measurements
   # GET /bg_measurements.json
   def index
-#    if params[:user_id]
-#      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id])
-#    else
-      @bg_measurements = BgMeasurement.all
+    if current_user
+      params[:user_id] = current_user.id
+    end
+      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id])
 #    end
   end
 
@@ -28,7 +28,9 @@ class BgMeasurementsController < ApplicationController
   # POST /bg_measurements
   # POST /bg_measurements.json
   def create
-    @bg_measurement = BgMeasurement.new(bg_measurement_params)
+    x = bg_measurement_params
+    x["user_id"] = current_user.id
+    @bg_measurement = BgMeasurement.new(x)
 
     respond_to do |format|
       if @bg_measurement.save

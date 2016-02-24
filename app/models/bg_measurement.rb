@@ -1,3 +1,4 @@
 class BgMeasurement < ActiveRecord::Base
-  belongs_to :patient
+  belongs_to :user
+  validates :user_id, :presence => true
 end

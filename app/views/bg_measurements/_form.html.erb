@@ -17,10 +17,7 @@
   <div class>
     <%= f.text_area :notes %>
   </div>
-  <div class>
-    <%= f.text_field :patient_name %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>  <%= link_to 'Back', bg_measurements_path, :class => "small radius alert button" %>
   </div>
 <% end %>

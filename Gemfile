@@ -52,3 +52,5 @@ end
 gem 'foundation-rails', '5.4.5'
 gem 'foundation_rails_helper'
 gem 'chartkick'
+gem 'local_time'
+gem 'awesome_print'

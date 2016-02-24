@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209200249) do
+ActiveRecord::Schema.define(version: 20160223232011) do
 
   create_table "bg_measurements", force: true do |t|
     t.float    "mg_dl"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160209200249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "patient_name"
+    t.integer  "user_id"
   end
 
   add_index "bg_measurements", ["patient_id"], name: "index_bg_measurements_on_patient_id"
