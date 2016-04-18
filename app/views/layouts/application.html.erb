@@ -12,22 +12,24 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>  	
     <%= csrf_meta_tags %>
   </head>
-
-<p id="notice"><%= notice %></p>
+	<nav class="top-bar">
+		<ul class="title-area">
+			<li class="name">
+				<h1><%= link_to "Blood Sugar Cloud", bg_measurements_path %></h1>
+			</li>
+		</ul>
+		<section class="top-bar-section">
+			<ul class="right">
+				
+			</ul>
+		</section>
+	</nav>  
   <body>
-	    <div class="large-6 columns">
-			<%= yield %>
-			<div id="user_header">
-				<% if current_user %>
-				<br/><br/><br/><br/>
-				  <span class="button small regular round"> <%= current_user.email %></span>    <%= link_to "Log Out", logout_path, :class => "button small alert round" %>
-				<% else %> 
-				<%#= link_to "Sign Up", signup_path, :class => "button success round" %>
-				<%#= link_to "Log In", login_path, :class => "button success round" %>
-				<% end %>
-			</div>			
-		</div>
+	<p id="notice"><%= notice %></p>		  
+	<div class="row">
+		<%= yield %>		
 	</div>
 
+	  
   </body>
 </html>
