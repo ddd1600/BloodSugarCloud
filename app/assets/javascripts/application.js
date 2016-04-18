@@ -15,7 +15,6 @@
 //= require foundation
 //= require highcharts
 // removed turbolinks
-//= require jsapi
 //= require chartkick	
 //= require_tree .
 
