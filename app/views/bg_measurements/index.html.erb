@@ -9,6 +9,10 @@
 	<%= line_chart(@bg_measurements.all.map {|r| [(r.measurement_time - 3.hours), r.mg_dl]}, :max => 400, :height => 40) %>
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
+	<h2>Times of Day Most Studied</h2>
+	<%= pie_chart @bg_measurements.group(:time_of_day).count %>
+	<h2>All Measurements</h2>
+	<%= pie_chart @bg_measurements.group(:bg_assessment).count %>
 		<%	BgMeasurement::TIMES_OF_DAY.each do |time_of_day| %>
 			<h3><%= time_of_day %></h3>
 			<%= pie_chart @bg_measurements.where(:time_of_day => time_of_day).group(:bg_assessment).count  %>
