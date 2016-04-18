@@ -15,7 +15,6 @@
 //= require foundation
 //= require highcharts
 // removed turbolinks
-//= require chartkick	
 //= require_tree .
 
 //$(function(){ $(document).foundation(); });
