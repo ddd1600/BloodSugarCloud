@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224200825) do
+ActiveRecord::Schema.define(version: 20160418200841) do
 
   create_table "bg_measurements", force: true do |t|
     t.float    "mg_dl"
     t.text     "notes"
-    t.integer  "patient_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "patient_name"
     t.integer  "user_id"
+    t.string   "user_email_bg_timestamp"
+    t.datetime "measurement_time"
+    t.string   "time_of_day"
   end
 
-  add_index "bg_measurements", ["patient_id"], name: "index_bg_measurements_on_patient_id"
+  add_index "bg_measurements", ["user_email_bg_timestamp"], name: "index_bg_measurements_on_user_email_bg_timestamp"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -37,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160224200825) do
     t.string   "last_name"
     t.integer  "zipcode"
     t.string   "ip_address"
+    t.string   "time_zone"
   end
 
 end

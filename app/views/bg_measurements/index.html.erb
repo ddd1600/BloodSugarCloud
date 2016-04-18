@@ -6,33 +6,36 @@
   </div>
 <% else %>
 	<h3 style="text-align: center;"><%= current_user.name %> BG Readings</h3>
-	<%= line_chart(@bg_measurements.all.map {|r| [(r.created_at - 3.hours), r.mg_dl]}) %>
+	<%= line_chart(@bg_measurements.all.map {|r| [(r.measurement_time - 3.hours), r.mg_dl]}, :max => 400, :height => 40) %>
+	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
+	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
+  <div class"row">
+	<div class="small-5 columns">
+		<h3>Blood Sugar Readings</h3>
+		<table>
+		  <thead>
+		    <tr>
+		      <th>mg/dL</th>
+		      <th>Notes</th>
+		      <th>Patient</th>
+			  <th>Time of Reading</th>
+		    </tr>
+		  </thead>
 
-	<h3>Blood Sugar Readings</h3>
-
-	<table>
-	  <thead>
-	    <tr>
-	      <th>mg/dL</th>
-	      <th>Notes</th>
-	      <th>Patient</th>
-		  <th>Time of Reading</th>
-	    </tr>
-	  </thead>
-
-	  <tbody>
-	    <% @bg_measurements.each do |bg_measurement| %>
-	      <tr>
-	        <td><%= bg_measurement.mg_dl %></td>
-	        <td><%= bg_measurement.notes %></td>
-	        <td><%= bg_measurement.user.name %></td>
-			<td><%= bg_measurement.created_at.strftime("%l:%M %p, %B %e, %Y %Z") %>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-
-	<br>
-
-	<p><%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %></p>
+		  <tbody>
+		    <% @bg_measurements.each do |bg_measurement| %>
+		      <tr>
+		        <td><%= bg_measurement.mg_dl %></td>
+		        <td><%= bg_measurement.notes %></td>
+		        <td><%= bg_measurement.user.name %></td>
+				<td><%= bg_measurement.measurement_time.strftime("%l:%M %p, %B %e, %Y %Z") %>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+	<div class="small-7 columns">
+		<h1>Other stuff</h1>
+	</div>
+  </div>
 <% end%>

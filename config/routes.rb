@@ -18,5 +18,7 @@ Bloodsugar::Application.routes.draw do
   resources :users
   get 'users/index'
   root 'bg_measurements#index'
+  get "upload_csv", to: "bg_measurements#upload_csv", as: "upload_csv"
+  post "import_csv", to: "bg_measurements#import_csv", as: "import_csv"
 
 end

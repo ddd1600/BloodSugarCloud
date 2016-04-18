@@ -3,6 +3,17 @@ class BgMeasurementsController < ApplicationController
 
   # GET /bg_measurements
   # GET /bg_measurements.json
+  
+  def import_csv
+    before_count = BgMeasurement.where(:user_id => current_user.id).count
+    BgMeasurement.import_csv(params[:file], current_user)
+    after_count = BgMeasurement.where(:user_id => current_user.id).count
+    redirect_to bg_measurements_path, :notice => "#{(after_count-before_count)} readings successfully uploaded into database"
+  end
+  
+  def upload_csv
+  end
+  
   def index
     if current_user
       params[:user_id] = current_user.id
@@ -30,6 +41,8 @@ class BgMeasurementsController < ApplicationController
   def create
     x = bg_measurement_params
     x["user_id"] = current_user.id
+    x["measurement_time"] = Time.now
+    x["user_email_bg_timestamp"] = "#{current_user.email}_#{x['measurement_time'].to_i}"
     @bg_measurement = BgMeasurement.new(x)
 
     respond_to do |format|
@@ -76,5 +89,9 @@ class BgMeasurementsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bg_measurement_params
       params.require(:bg_measurement).permit(:mg_dl, :notes, :patient_id)
+    end
+    
+    def validate_csv(file)
+      
     end
 end
