@@ -55,5 +55,6 @@ end
 # gem 'debugger', group: [:development, :test]
 gem 'foundation-rails', '5.4.5'
 gem 'foundation_rails_helper'
+gem 'foundation-icons-sass-rails'
 gem 'chartkick'
 gem 'awesome_print'
