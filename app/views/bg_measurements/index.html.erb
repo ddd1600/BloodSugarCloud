@@ -9,8 +9,10 @@
 	<%= line_chart(@bg_measurements.all.map {|r| [(r.measurement_time - 3.hours), r.mg_dl]}, :max => 400, :height => 40) %>
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
-  <div class"row">
-	<div class="small-5 columns">
+		<%	BgMeasurement::TIMES_OF_DAY.each do |time_of_day| %>
+			<h3><%= time_of_day %></h3>
+			<%= pie_chart @bg_measurements.where(:time_of_day => time_of_day).group(:bg_assessment).count  %>
+		<% end %>	
 		<h3>Blood Sugar Readings</h3>
 		<table>
 		  <thead>
@@ -19,9 +21,10 @@
 		      <th>Notes</th>
 		      <th>Patient</th>
 			  <th>Time of Reading</th>
+			  <th>Time Classification</th>
+			  <th>BG Assessment</th>
 		    </tr>
 		  </thead>
-
 		  <tbody>
 		    <% @bg_measurements.each do |bg_measurement| %>
 		      <tr>
@@ -29,13 +32,10 @@
 		        <td><%= bg_measurement.notes %></td>
 		        <td><%= bg_measurement.user.name %></td>
 				<td><%= bg_measurement.measurement_time.strftime("%l:%M %p, %B %e, %Y %Z") %>
+				<td><%= bg_measurement.time_of_day %>
+				<td><%= bg_measurement.bg_assessment %>
 		      </tr>
 		    <% end %>
 		  </tbody>
 		</table>
-	</div>
-	<div class="small-7 columns">
-		<h1>Other stuff</h1>
-	</div>
-  </div>
 <% end%>

@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160418200841) do
     t.string   "user_email_bg_timestamp"
     t.datetime "measurement_time"
     t.string   "time_of_day"
+    t.string   "bg_assessment"
   end
 
   add_index "bg_measurements", ["user_email_bg_timestamp"], name: "index_bg_measurements_on_user_email_bg_timestamp"

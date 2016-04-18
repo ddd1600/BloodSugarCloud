@@ -4,9 +4,12 @@ class BgMeasurement < ActiveRecord::Base
   validates :user_email_bg_timestamp, :presence => true
   validates :user_email_bg_timestamp, :uniqueness => true
   validates :measurement_time, :presence => true
+  TIMES_OF_DAY = ["Morning (5AM to 10AM)", "Noonish (10AM to 2PM)","Afternoon (2PM to 6PM)", "Evening (6PM to 9PM)", "Night (9PM to Midnight)", "Twilight (Midnight to 5AM)"]
+  BG_ASSESSMENTS = ["Very Low (<50)", "Low (50-75)", "Optimal (75-140)", "OK (140-180)", "Somewhat High (180-220)", "High (220-300)", "Very High (300+)"]
   
   before_save do |r|
     r.time_of_day = r.get_time_of_day
+    r.bg_assessment = r.get_bg_assessment
   end
     
   def self.import_csv(file, current_user)
@@ -28,6 +31,27 @@ class BgMeasurement < ActiveRecord::Base
       end# of conditinal
     end# of csv rows
   end# of method
+  
+  def get_bg_assessment
+    bg = mg_dl
+    if mg_dl <= 50
+      "Very Low (<50)"
+    elsif mg_dl.between?(50, 75)
+      "Low (50-75)"
+    elsif mg_dl.between?(75, 140)
+      "Optimal (75-140)"
+    elsif mg_dl.between?(140, 180)
+      "OK (140-180)"
+    elsif mg_dl.between?(180, 220)
+      "Somewhat High (180-220)"
+    elsif mg_dl.between?(220, 300)
+      "High (220-300)"
+    elsif mg_dl > 300
+      "Very High (300+)"
+    else
+      raise "something is wrong!"
+    end
+  end
   
   def get_time_of_day
     hr = measurement_time.hour
