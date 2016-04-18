@@ -13,7 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
+// removed turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+//$(function(){ $(document).foundation(); });
+$(document).on('ready page:load', function () {
+	$(document).foundation();
+});
