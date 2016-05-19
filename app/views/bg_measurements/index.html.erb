@@ -6,7 +6,10 @@
   </div>
 <% else %>
 	<h3 style="text-align: center;"><%= current_user.name %> BG Readings</h3>
+	<%# scatter_plot_library_options = {:xAxis => {:type => "datetime"}} %>
+	<h5><%= "#{@bg_measurements.count} Total Measurements" %></h5>
 	<%= line_chart(@bg_measurements.all.map {|r| [(r.measurement_time - 3.hours), r.mg_dl]}, :max => 400, :height => 40) %>
+
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
 	<h2>Times of Day Most Studied</h2>
