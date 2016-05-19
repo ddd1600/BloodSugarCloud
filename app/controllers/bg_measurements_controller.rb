@@ -15,10 +15,34 @@ class BgMeasurementsController < ApplicationController
   end
   
   def index
+    params[:time_period] ||= "All"
+    study_period = params[:time_period] || "Last Year"
+    if study_period == "Last Year"
+      start_date = Time.now - 1.year
+    elsif study_period == "Last 30 Days"
+      start_date = Time.now - 30.days
+    elsif study_period == "Last 60 Days"
+      start_date = Time.now - 60.days
+    elsif study_period == "Last 90 Days"
+      start_date = Time.now - 90.days
+    elsif study_period == "One Month Ago"
+      start_date = Time.now - 2.months
+      end_date = Time.now - 1.month
+    elsif study_period == "Two Months Ago"
+      start_date = Time.now - 3.months
+      end_date = Time.now - 2.months
+    elsif study_period == "Three Months Ago"
+      start_date = Time.now - 4.months
+      end_date = Time.now - 3.months
+    else
+      start_date = Time.now - 10.years
+    end
+    end_date ||= Time.now
+
     if current_user
       params[:user_id] = current_user.id
     end
-      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id])
+      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id]).where(:measurement_time => start_date..end_date)
 #    end
   end
 

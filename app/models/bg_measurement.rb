@@ -6,10 +6,15 @@ class BgMeasurement < ActiveRecord::Base
   validates :measurement_time, :presence => true
   TIMES_OF_DAY = ["Morning (5AM to 10AM)", "Noonish (10AM to 2PM)","Afternoon (2PM to 6PM)", "Evening (6PM to 9PM)", "Night (9PM to Midnight)", "Twilight (Midnight to 5AM)"]
   BG_ASSESSMENTS = ["Very Low (<50)", "Low (50-75)", "Optimal (75-140)", "OK (140-180)", "Somewhat High (180-220)", "High (220-300)", "Very High (300+)"]
+
+  default_scope { order("measurement_time asc") }
   
   before_save do |r|
+    r.eastern_us_mtime = r.measurement_time + 4.hours
+    r.pacific_us_mtime = r.measurement_time + 1.hour
     r.time_of_day = r.get_time_of_day
     r.bg_assessment = r.get_bg_assessment
+
   end
     
   def self.import_csv(file, current_user)

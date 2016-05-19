@@ -1,3 +1,7 @@
+<style>
+
+</style>
+
 <% unless current_user %>
   <div style="text-align: center;">
 	  <h2>Welcome to the Blood Sugar Cloud</h2>
@@ -6,12 +10,31 @@
   </div>
 <% else %>
 	<h3 style="text-align: center;"><%= current_user.name %> BG Readings</h3>
+
+		<%= form_tag(request.fullpath, {:method => "get", :class => "form-inline"}) do %>
+			<div class="form-group">
+				<%= label_tag :time_period, "Study Period", :class => "input-group-label" %>
+				<%= select_tag :time_period, options_for_select(["Last Year", "Last 30 Days", "Last 60 Days", "Last 90 Days", "One Month Ago", "Two Months Ago", "Three Months Ago", "All"], params[:time_period]), :class => "input-group-field" %>
+				<div class="input-group-button">
+					<%= submit_tag "Go", :class => "button small round" %>
+				</div>
+			</div>
+		<% end %>
+	
 	<%# scatter_plot_library_options = {:xAxis => {:type => "datetime"}} %>
-	<h5><%= "#{@bg_measurements.count} Total Measurements" %></h5>
-	<%= line_chart(@bg_measurements.all.map {|r| [(r.measurement_time - 3.hours), r.mg_dl]}, :max => 400, :height => 40) %>
+	<%= line_chart(@bg_measurements.all.map {|r| [(r.eastern_us_mtime), r.mg_dl]}, :max => 400, :height => 40) %>
 
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
+	<p>
+		<h5>Basic Stats:</h5>
+		<li><strong>n</strong> = <%= @bg_measurements.count %></li>
+		<% bgs = @bg_measurements.map(&:mg_dl) %>
+		<li><strong>Average</strong>: <%= bgs.average %></li>
+		<li><strong>Median</strong>: <%= bgs.median %></li>
+		<li><strong>Minimum</strong>: <%= bgs.min %></li>
+		<li><strong>Maximum</strong>: <%= bgs.max %></li>
+	</p>
 	<h2>Times of Day Most Studied</h2>
 	<%= pie_chart @bg_measurements.group(:time_of_day).count %>
 	<h2>All Measurements</h2>
@@ -33,12 +56,12 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <% @bg_measurements.each do |bg_measurement| %>
+		    <% @bg_measurements.order("measurement_time desc").each do |bg_measurement| %>
 		      <tr>
 		        <td><%= bg_measurement.mg_dl %></td>
 		        <td><%= bg_measurement.notes %></td>
 		        <td><%= bg_measurement.user.name %></td>
-				<td><%= bg_measurement.measurement_time.strftime("%l:%M %p, %B %e, %Y %Z") %>
+				<td><%= bg_measurement.eastern_us_mtime.strftime("%l:%M %p, %B %e, %Y %Z") %>
 				<td><%= bg_measurement.time_of_day %>
 				<td><%= bg_measurement.bg_assessment %>
 		      </tr>

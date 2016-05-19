@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418200841) do
+ActiveRecord::Schema.define(version: 20160519170013) do
 
   create_table "bg_measurements", force: true do |t|
     t.float    "mg_dl"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20160418200841) do
     t.datetime "measurement_time"
     t.string   "time_of_day"
     t.string   "bg_assessment"
+    t.datetime "eastern_us_mtime"
+    t.integer  "unix_epoch_mtime"
+    t.datetime "pacific_us_mtime"
   end
 
   add_index "bg_measurements", ["user_email_bg_timestamp"], name: "index_bg_measurements_on_user_email_bg_timestamp"
