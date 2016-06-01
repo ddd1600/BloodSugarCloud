@@ -17,6 +17,9 @@
 // removed turbolinks
 //= require_tree .
 
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
+
 //$(function(){ $(document).foundation(); });
 $(document).on('ready page:load', function () {
 	$(document).foundation();

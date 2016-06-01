@@ -14,7 +14,6 @@ class BgMeasurement < ActiveRecord::Base
     r.pacific_us_mtime = r.measurement_time + 1.hour
     r.time_of_day = r.get_time_of_day
     r.bg_assessment = r.get_bg_assessment
-
   end
     
   def self.import_csv(file, current_user)

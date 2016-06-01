@@ -56,4 +56,5 @@ end
 gem 'foundation-rails', '5.4.5'
 gem 'foundation_rails_helper'
 gem 'chartkick'
+gem 'lazy_high_charts'
 gem 'awesome_print'

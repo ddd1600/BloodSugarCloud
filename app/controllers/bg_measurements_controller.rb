@@ -13,6 +13,24 @@ class BgMeasurementsController < ApplicationController
   
   def upload_csv
   end
+
+  def scatter
+#    @chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
+#      f.global(:getTimezoneOffset => -240)
+#    end
+    bg_measurements = BgMeasurement.where(:user_id => current_user.id)
+    utc_offset_in_milliseconds = 240.0 * 60.0 * 1000.0 #shifts time four hours back to correct for EST from default UTC
+    @scatter1 = LazyHighCharts::HighChart.new("scatter1") do |f|
+      f.title(:text => "Blood Sugar Readings")
+      f.chart(:type => "scatter")
+      f.global(:getTimezoneOffset => -240)      
+      #f.xAxis(:type => "datetime", :dateTimeLabelFormats => {  }) #maybe the defaults will be sensible. this is just for labels
+      f.xAxis(:type => "datetime", :title => {:text => "x axis title"})
+      #f.tooltip(:pointFormat => '{point.y} mg/dL ({point.x})')
+
+      f.series(:name => "mg/dL", :data => bg_measurements.map{|r| [(r.eastern_us_mtime.to_i*1000 - utc_offset_in_milliseconds), r.mg_dl]})
+    end# of chart
+  end
   
   def index
     params[:time_period] ||= "All"
@@ -42,8 +60,19 @@ class BgMeasurementsController < ApplicationController
     if current_user
       params[:user_id] = current_user.id
     end
-      @bg_measurements = BgMeasurement.where(:user_id => params[:user_id]).where(:measurement_time => start_date..end_date)
-#    end
+    @bg_measurements = BgMeasurement.where(:user_id => params[:user_id]).where(:measurement_time => start_date..end_date)
+    utc_offset_in_milliseconds = 240.0 * 60.0 * 1000.0 #shifts time four hours back to correct for EST from default UTC
+    @scatter1 = LazyHighCharts::HighChart.new("scatter1") do |f|
+      f.title(:text => "Blood Sugar Readings")
+      f.chart(:type => "scatter")
+      f.global(:getTimezoneOffset => -240)      
+      #f.xAxis(:type => "datetime", :dateTimeLabelFormats => {  }) #maybe the defaults will be sensible. this is just for labels
+      f.xAxis(:type => "datetime")#, :title => {:text => "x axis title"})
+#      f.yAxis(:title => {:text => "mg/dL"})
+      #f.tooltip(:pointFormat => '{point.y} mg/dL ({point.x})')
+
+      f.series(:name => "mg/dL", :data => @bg_measurements.map{|r| [(r.eastern_us_mtime.to_i*1000 - utc_offset_in_milliseconds), r.mg_dl]})
+    end# of chart    
   end
 
   # GET /bg_measurements/1

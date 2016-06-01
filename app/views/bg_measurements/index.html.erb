@@ -22,7 +22,10 @@
 		<% end %>
 	
 	<%# scatter_plot_library_options = {:xAxis => {:type => "datetime"}} %>
-	<%= line_chart(@bg_measurements.all.map {|r| [(r.eastern_us_mtime), r.mg_dl]}, :max => 400, :height => 40) %>
+	<%#= line_chart(@bg_measurements.all.map {|r| [(r.eastern_us_mtime), r.mg_dl]}, :max => 400, :height => 40) %>
+	<%= high_chart("scatter1", @scatter1) do |c| %>
+	<%= raw "options.tooltip.formatter = function() { return this.y + ' mg/dL: ' + Highcharts.dateFormat('%B %e %Y, %I:%M %p', this.x);}" %>
+<% end %>
 
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
