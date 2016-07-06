@@ -21,5 +21,7 @@ Bloodsugar::Application.routes.draw do
   get "upload_csv", to: "bg_measurements#upload_csv", as: "upload_csv"
   get "scatter", to: "bg_measurements#scatter", as: "scatter"
   post "import_csv", to: "bg_measurements#import_csv", as: "import_csv"
+  get "export", to: "bg_measurements#export", as: "export"
+  get "about", :to => "bg_measurements#about", as: "about"
 
 end

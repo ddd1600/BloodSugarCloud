@@ -3,6 +3,7 @@
 </style>
 
 <% unless current_user %>
+
   <div style="text-align: center;">
 	  <h2>Welcome to the Blood Sugar Cloud</h2>
 	  <%= link_to "Create an Account",  signup_path, :class => "button success round" %><br/>
@@ -10,7 +11,6 @@
   </div>
 <% else %>
 	<h3 style="text-align: center;"><%= current_user.name %> BG Readings</h3>
-
 		<%= form_tag(request.fullpath, {:method => "get", :class => "form-inline"}) do %>
 			<div class="form-group">
 				<%= label_tag :time_period, "Study Period", :class => "input-group-label" %>
@@ -29,6 +29,7 @@
 
 	<%= link_to 'Add New Reading', new_bg_measurement_path, :class => 'button success round' %>
 	<%= link_to "Upload OneTouch CSV Data", upload_csv_path, :class => "button success round" %>
+	<%= link_to "Export All CSV Data", "export.csv", :class => "button success round" %>
 	<p>
 		<h5>Basic Stats:</h5>
 		<li><strong>n</strong> = <%= @bg_measurements.count %></li>

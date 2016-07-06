@@ -15,6 +15,18 @@ class BgMeasurement < ActiveRecord::Base
     r.time_of_day = r.get_time_of_day
     r.bg_assessment = r.get_bg_assessment
   end
+
+  def self.to_csv(current_user)
+    cols = ["eastern_us_mtime", "mg_dl", "notes", "bg_assessment", "time_of_day"]
+    CSV.generate do |csv|
+      csv << cols
+      where(:user_id => current_user.id).each do |bg|
+        row = []
+        cols.each {|col| row << bg.send(col.to_sym)}
+        csv << row        
+      end# of bgs
+    end
+  end
     
   def self.import_csv(file, current_user)
     puts "attempting to upload data..."
@@ -35,6 +47,10 @@ class BgMeasurement < ActiveRecord::Base
       end# of conditinal
     end# of csv rows
   end# of method
+
+  def about
+    
+  end
   
   def get_bg_assessment
     bg = mg_dl

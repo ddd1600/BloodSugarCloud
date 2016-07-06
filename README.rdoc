@@ -1,28 +1,7 @@
-== README
+This is a fairly simple rails application I created with the encourage of my friend in medical school to track my blood glucose data. The original purpose of tracking my blood sugars was in preparation for getting my Third Class Medical Airman's certificate as a type 1 diabetic. I am still working towards that goal, but encourage anyone out there with diabetes to used cloud based services such as this one to keep a close eye on their blood glucose data.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The application can accept CSV uploads from the OneTouch iOS or Android application directly from one's phone or computer. Timestamps in conjunction with user information are utilized to ensure no duplicate data is entered. Export to CSV functionality is available and I strongly encourage backups to be made.
 
-Things you may want to cover:
+This application is available for free to anyone to use.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Shoot for the stars, hit the moon. But before you take off, check that blood sugar!
